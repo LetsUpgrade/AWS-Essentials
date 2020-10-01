@@ -1,0 +1,230 @@
+Deploying the windows server on AWS
+Deploying the Linux-nginx server on AWS
+Host website on linux machine and use load balancer to manage the traffic
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Legacy System
+Servers,
+Physical Infrastructure,
+Internal Storage,
+Programs and Applications
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Why Cloud?
+--suppose lost or forgot to pendrive, not able to get the physical data, but in cloud its available.
+--buy the application and install everytime.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+--if you have to shift into internet what are hurdles
+--+setup is expensive.
+--+keep up traffic in mind and buy more servers.
+--+Monitoring and Maintenance of your servers
+--+Since the traffic is varying , servers will be idle most of time
+--+ Troubleshooting problems can be tedious and may conflict with your Business Goals
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-Cloud computing is a model for enabling convinient, on-demand network access to a shared pool of configurable computing resources.
+-can be rapidly provisioned and released with minimal management effort.
+-provides high level abstraction of computation and storage model.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Advantages of cloud computing
+- Stop guessing capacity.
+- Increased speed and agility.
+- Variable vs capital expense.
+- Focus on business differentiators.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Economies of scale
+- Cost advantages companies experience when production becomes efficient.
+- A business's size and achieving an economy of scale
+- Internal economies are caused by factors within a single company.
+- External factors affect the entire industry.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Deployment Models
+-Public Cloud *Data centre = shared resources
+-Private Cloud *Customer = dedicated specific resources to specific group
+-Community/ Govt. Cloud *Shared Data centre = more than one organization when work on collaboration then they use shared cloud among them
+-Hybrid Cloud *Data centre = able to use of combination of public and private cloud
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-Characterictics of Public Cloud
+-Characterictics of Private Cloud
+-Characterictics of Hybrid Cloud
+-Characterictics of Community Cloud
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Service Models
+-IaaS *Virtual Machines 
+-PaaS *Azure Cloud Services
+-SaaS *Office365
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Global Infrastructure of AWS- DATACENTRES
+AWS Compute Services
+-EC2
+-Elastic beanstalk
+-Lambda - automate task to serverless compute space
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
++EC2 Instances
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Assignment : adding into windows server 
+: adding nginx in ubuntu server
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+LAB-1
+-Click EC2
+-launch Instance
+-Windows machine
+-choosing AMI
+-MS 2019 base
+-t2.micro (free tier)
+-configure instance details
+-no. of instances( vms to create)
+-default vpc, subnet (no)
+-domain join directory (no)
+-IAM role (no)
+-shutdown behavior (stop)
+-enable protection
++add storage
+-root : delete on termination
++configure security group
+-select create/existing group
+-all traffic : anywhere
+
++connect
+-download rdp
+-choose file
+
++ Administrator login
+- download server using Powershell
+> Install-WindowsFeature -name Web-Server -IncludeManagementTools
+-check by using Public IP from aws
+
++MobaXterm
+-SSH
+-linux ip
+-username : ec2-user
+-advanced : use private key
+
+-ubuntu ip
+-username : ubuntu
+-advanced : use private key
+
++Ubuntu Instance
+- sudo apt-get -y update
+- sudo apt-get -y install nginx
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
++AWS S3 storage
+-S3 standard = instantaneous access
+-S3-IA =infrequently accessed
+-Glacier = long term with enormous amount of storage
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
++S3 Pricing
+-storage
+-requests in & out from buckets
+-storage management
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
++AWS S3 Storage classes and data lifecycle
+-S3 standard = upto 90 days and configurable
+-s3 Infrequent access =1 year and configurable
+-Glacier = for data archival for vely long duration of time
+Note : not hard time can be configured according to use
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
++Load Balancing and Auto-Scaling
+-Elastic Load Balancer allows the incoming traffic tobe distributed automatically across multiple healthy EC2 Instances.
+-Increases the application availability by allowing addition or removal of multiple EC2 instances across one or more availability zones, without disrupting.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
++Load balancer types
+-Internet
+-Internal
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
++Autoscaling
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
++LAB-3 Elastic Load Balancer
+-login to AWS account
+-html in two linux
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
++Creating ELD
+-create two linux instances use linus AMI
+-launch both instances using mobazterm
+-host html
+-check if application is deployed
+-creating load balancers
+-shutdown behavior : stop
+- protect against accidental termination
+-create a load balancer
+--application load balancer
+-name : letsupgradeELB
+-scheme: internet
+-atleast two availaibility zones
+--next
+--create new
+-all traffic
+-anywhere
+--target group
+-instance-port80-http
+--register targets
+-linux 1
+-linux 2
+(Add to registered)
+--review
+
++Go to mobaxterm
+-create 2 sessions
+-remote host = IP
+-specify username = ec2-user
+-advanced ssh
+
+#sudo su
+#yum install httpd
+#Y
+#cd /var/www/html
+#pwd
+#vi index.html
+#i
+#HTML CODE for Login Page
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+<form action="action_page.php" method="post">
+	<div class="imgcontainer">
+		<img src="img_avatar2.png" alt="Avatar" class="avatar">
+	</div>
+
+	<div class="container">
+		<label for="uname"><b>Username</b></label>
+		<input type="text" placeholder="Enter Username" name="uname" required>
+
+		<label for="psw"><b>Password</b></label>
+		<input type="password" placeholder="Enter Password" name="psw" required>
+
+		<button type="submit">Login</button>
+		<label>
+			<input type="checkbox" checked="checked" name="remember"> Remember me
+		</label>
+	</div>
+
+	<div class="container" style="background-color: #f1f1f1">
+		<button type="button" class="cancelbtn">Cancel</button>
+		<span class="psw">Forgot <a href="#">password?</a></span>
+	</div>
+</form>
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+#esc :wq (save and exit)
+#more index.html
+
+-----for second replace password with passkey
+then...
+#service httpd start
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+/////same for 2nd linux\\\\\\\
+#USERID
+#PASS Key
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----Load balanceer
+-dnsname
+-paste in your browser
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
++Identity & Access Management
++IAM users
++IAM Groups
++IAM Roles
++Multifactor Authentication
++Password Policies
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----LAB 3
++Linux1
++Linux2
++Login page 1
++Login page 2
++Load balancer and DNS name
++loading web page by dns
